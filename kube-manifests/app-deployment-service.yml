@@ -1,28 +1,28 @@
-apiversion: app/v1
+apiVersion: apps/v1
 kind: Deployment
-metadata: 
+metadata:
   name: webapp-nginx-deployment
-  labels: 
+  labels:
     app: webapp-nginx
 spec:
   replicas: 1
-  selector: 
+  selector:
     matchLabels:
       app: webapp-nginx
   template:
     metadata:
       labels:
-       app: webapp-nginx
+        app: webapp-nginx
     spec:
-      containers: 
-        - name: webapp-nginx
-          image: diwakbunj.azurecr.io/webapp
-          ports:
-            - containerPort: 80
+      containers:
+      - name: webapp-nginx
+        image: diwakbunj.azurecr.io/webapp
+        ports:
+        - containerPort: 80
 
 ---
 
-apiversion: app/v1
+apiVersion: v1
 kind: Service
 metadata:
   name: webapp-loadbalancer-service
@@ -31,8 +31,7 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app: web-nginx
+    app: webapp-nginx
   ports:
-    - port: 80
-      targetPort: 80
-    
+  - port: 80
+    targetPort: 80
